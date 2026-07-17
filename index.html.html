@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>GodEngine - Security</title>
+    <style>
+        body{background:#0a0e17;color:#00ff88;font-family:Arial;display:flex;justify-content:center;align-items:center;height:100vh;text-align:center;margin:0}
+        .shield{font-size:60px;display:block;margin-bottom:10px}
+        h1{font-size:40px}
+        h1 span{color:#fff}
+        p{color:#6b7280}
+        .badge{display:inline-block;background:rgba(0,255,136,0.08);border:1px solid rgba(0,255,136,0.08);padding:4px 16px;border-radius:20px;font-size:11px;color:#00ff88;margin-top:10px}
+        .protected{color:#335533;font-size:11px;margin-top:20px}
+    </style>
+</head>
+<body>
+    <div>
+        <span class="shield">🛡️</span>
+        <h1>GodEngine.<span>Security</span></h1>
+        <p>🔒 15 Layers of Protection</p>
+        <span class="badge">● Secure</span>
+        <p class="protected">Try to inspect this page 😈</p>
+    </div>
+
+    <script>
+        // ─── BLOCK view-source: ───
+        if (window.location.href.includes('view-source')) {
+            document.body.innerHTML = `
+                <div style="background:#0a0e17;color:#ff4444;text-align:center;padding:50px;font-family:Arial;height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;">
+                    <h1 style="font-size:60px;">🖕</h1>
+                    <h2 style="color:#ff4444;font-size:40px;">BLOCKED!</h2>
+                    <p style="color:#6b7280;font-size:18px;">view-source is disabled.</p>
+                </div>
+            `;
+            window.stop();
+        }
+
+        // ─── BLOCK RIGHT CLICK ───
+        document.oncontextmenu = function(e) {
+            e.preventDefault();
+            alert('🖕 NICE TRY!');
+            return false;
+        }
+
+        // ─── BLOCK ALL KEYS ───
+        document.onkeydown = function(e) {
+            if (e.key.startsWith('F') ||
+                (e.ctrlKey && ['u','U','s','S','p','P','w','W','r','R'].includes(e.key)) ||
+                (e.ctrlKey && e.shiftKey && ['I','i','J','j','C','c'].includes(e.key))) {
+                e.preventDefault();
+                alert('🖕 BLOCKED!');
+                return false;
+            }
+        }
+
+        // ─── DEVTOOLS DETECTION ───
+        let count = 0;
+        setInterval(function() {
+            const start = performance.now();
+            debugger;
+            const end = performance.now();
+            if (end - start > 100) {
+                count++;
+                if (count >= 3) {
+                    document.body.innerHTML = `
+                        <div style="background:#0a0e17;color:#ff4444;text-align:center;padding:50px;font-family:Arial;height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;">
+                            <h1 style="font-size:60px;">🖕</h1>
+                            <h2 style="color:#ff4444;font-size:40px;">FUCK OFF!</h2>
+                            <p style="color:#6b7280;font-size:18px;">Your IP has been logged.</p>
+                        </div>
+                    `;
+                    window.stop();
+                } else {
+                    alert('⚠️ DevTools detected! ' + (3 - count) + ' attempts left!');
+                    location.reload();
+                }
+            }
+        }, 1000);
+
+        // ─── CONSOLE PROTECTION ───
+        console.log = function() {};
+        console.warn = function() {};
+        console.error = function() {};
+        console.info = function() {};
+
+        // ─── BLOCK COPY ───
+        document.addEventListener('copy', function(e) {
+            e.preventDefault();
+            alert('🖕 CAN\'T COPY!');
+        });
+
+        // ─── BLOCK SELECTION ───
+        document.body.style.userSelect = 'none';
+        document.body.style.webkitUserSelect = 'none';
+
+        console.log('✅ SECURITY ACTIVE');
+    </script>
+</body>
+</html>
